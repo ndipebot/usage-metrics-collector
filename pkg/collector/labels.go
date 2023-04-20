@@ -578,9 +578,14 @@ func (c *Collector) getLabelValues(mask collectorcontrollerv1alpha1.LabelsMask, 
 
 	values := append(b, extValues...)
 
+	return values
+}
+
+// getLabelValues returns the set of label values for this mask
+func (c *Collector) applyOverrides(names, values []string) []string {
 	// extension point for overriding values
 	overrideValues(values, names)
-
+	
 	return values
 }
 

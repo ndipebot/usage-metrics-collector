@@ -81,6 +81,7 @@ func (c *Collector) aggregateMetric(ops []collectorcontrollerv1alpha1.Aggregatio
 		// compute the labels for this instance of the metric so we can drop metrics appropriately
 		names := c.getLabelNames(mask)
 		values := c.getLabelValues(mask, labels, names)
+		c.applyOverrides(names, values)
 		index := map[string]string{}
 		for i := range names {
 			if values[i] != "" {
