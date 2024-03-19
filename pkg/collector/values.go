@@ -478,6 +478,12 @@ func splitRequestsLimitsQuota(input corev1.ResourceList) (corev1.ResourceList, c
 			requests[corev1.ResourceName(strings.TrimPrefix(string(k), "requests."))] = v
 		} else if strings.HasPrefix(string(k), "limits.") {
 			limits[corev1.ResourceName(strings.TrimPrefix(string(k), "limits."))] = v
+		// for "cpu" and "memory" with prefix this maps to requests
+		// see https://kubernetes.io/docs/concepts/policy/resource-quotas/
+		} else if string(k) == "cpu"{
+			requests[corev1.ResourceName("cpu")] = v
+		} else if string(k) == "memory" {
+			requests[corev1.ResourceName("memory")] = v
 		}
 	}
 	return requests, limits

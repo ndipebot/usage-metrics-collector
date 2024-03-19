@@ -1,0 +1,34 @@
+quota:
+  apiVersion: v1
+  kind: ResourceQuota
+  status:
+    hard:
+      cpu: "250"
+      memory: 150G
+    used:
+      cpu: "100"
+      memory: 100G
+resourceQuotaDescriptor:
+  apiVersion: quotamanagement.usagemetricscollector.sigs.k8s.io/v1alpha1
+  kind: ResourceQuotaDescriptor
+  metadata:
+    annotations:
+      usagemetricscollector.sigs.k8s.io/maxObservedQuota: |
+        cpu: "600"
+        memory: 1400Gi
+  spec:
+    allocationStrategy:
+      allocationStrategyType: "Constant"
+      constant:
+        constantAllocated: true
+    targetAllocationsPolicy:
+      limitsTargetPercent:
+        "cpu": 68
+        "memory": 69
+      requestsTargetPercent:
+        "cpu": 70
+        "memory": 71
+  status:
+    proposedQuota:
+      "cpu": "143"
+      "memory": "141G"
